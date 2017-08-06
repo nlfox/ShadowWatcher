@@ -5,7 +5,7 @@ namespace ShadowWatcher
 {
     public class Loader
     {
-        private static GameObject rootObj = ToolboxGame.GameManager.m_GameManagerObj;
+        private static GameObject rootObj = GameMgr.GetIns().m_GameManagerObj;
 
         public static void Load()
         {

@@ -3,35 +3,36 @@ using ShadowWatcher.Deck;
 using ShadowWatcher.Replay;
 using ShadowWatcher.Socket;
 using System;
+using Cute;
+using Wizard;
 using UnityEngine;
 
 namespace ShadowWatcher
 {
-    public class Observer : MonoBehaviour
-    {
-        private BattleManager battleManager = new BattleManager();
-        private ReplayManager replayManager = new ReplayManager();
+	public class Observer : MonoBehaviour
+	{
+		//private BattleManager battleManager = new BattleManager();
+		//private ReplayManager replayManager = new ReplayManager();
 
-        public void Awake()
-        {
-            Sender.Initialize();
-            Receiver.Initialize(0);
+		public void Awake()
+		{
+			Sender.Initialize();
+			//Receiver.Initialize(0);
+			//Receiver.OnReceived = Receiver_OnReceived;
+			Sender.Send(Certification.Udid);
+			Sender.Send("test");
+		}
 
-            Receiver.OnReceived = Receiver_OnReceived;
+		public void OnDestroy()
+		{
+			//Sender.Send("Unload.");
+			//Sender.Destroy();
+			//Receiver.Destroy();
+		}
 
-            Sender.Send($"Load:{Receiver.ListenPort}");
-        }
-
-        public void OnDestroy()
-        {
-            Sender.Send("Unload.");
-            Sender.Destroy();
-            Receiver.Destroy();
-        }
-
-        public void LateUpdate()
-        {
-            try
+		public void LateUpdate()
+		{
+			/*try
             {
                 if (Settings.RecordEnemyCard || Settings.RecordPlayerCard)
                     battleManager.Loop();
@@ -45,12 +46,12 @@ namespace ShadowWatcher
             catch (Exception e)
             {
                 Sender.Send($"Error:{e.Message}\n{e.StackTrace}");
-            }
-        }
+            }*/
+		}
 
-        private void Receiver_OnReceived(string action, string data)
-        {
-            switch (action)
+		private void Receiver_OnReceived(string action, string data)
+		{
+			/*switch (action)
             {
                 case "ReplayRequest":
                     if (Settings.EnhanceReplay)
@@ -60,7 +61,7 @@ namespace ShadowWatcher
                     Settings.Parse(data);
                     Sender.Send($"Setting:{data}");
                     break;
-            }
-        }
-    }
+            }*/
+		}
+	}
 }
