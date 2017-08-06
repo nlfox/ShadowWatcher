@@ -20,7 +20,7 @@ namespace ShadowWatcher
         {
             InitializeComponent();
 
-            Receiver.Initialize();
+            //Receiver.Initialize();
             MainTab.IsEnabled = false;
 
             DataContext = this;
